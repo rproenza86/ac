@@ -1,0 +1,26 @@
+{
+    "tslint.enable": true,
+    //"tslint.configFile": "./tslint.json",
+    "workbench.iconTheme": "vscode-icons",
+    //"typescript.tsdk": "node_modules/typescript/lib",
+    "editor.rulers": [
+        132
+    ],
+    "files.exclude": {
+        "bower_components/": true,
+        "node_modules/": true,
+        "build/": true,
+        "coverage/": true,
+        "dist/": true,
+        "functions/node_modules": true
+    },
+    "search.exclude": {
+        "bower_components/": true,
+        "node_modules/": true,
+        "build/": true,
+        "coverage/": true,
+        "dist/": true,
+        "functions/node_modules": true
+    }
+    
+}
