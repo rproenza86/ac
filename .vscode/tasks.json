@@ -1,0 +1,74 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "command": "npm",
+    "tasks": [
+        {
+            "label": "install",
+            "args": [
+                "install"
+            ]
+        },
+        {
+            "label": "update",
+            "args": [
+                "update"
+            ]
+        },
+        {
+            "label": "test",
+            "args": [
+                "run",
+                "test"
+            ]
+        },
+        {
+            "label": "serve",
+            "args": [
+                "run",
+                "start"
+            ]
+        },
+        {
+            "label": "lint",
+            "args": [
+                "run",
+                "lint"
+            ]
+        },
+        {
+            "label": "lint:javascript",
+            "args": [
+                "run",
+                "lint:javascript"
+            ]
+        },
+        {
+            "label": "test:integration",
+            "args": [
+                "run",
+                "test:integration"
+            ]
+        },
+        {
+            "label": "firebase",
+            "args": [
+                "run",
+                "firebase"
+            ]
+        },
+        {
+            "label": "fire-deploy-functions",
+            "args": [
+                "run",
+                "fire-deploy-functions"
+            ]
+        },
+        {
+            "type": "npm",
+            "script": "fire-deploy-functions",
+            "problemMatcher": []
+        }
+    ]
+}
