@@ -1,36 +1,29 @@
-// import { connect } from 'react-redux';
-// 
-// import { formatUtils } from '@makemydeal/dr-common-utils';
-// import { formatUtils as sharedFormatUtils } from '@makemydeal/dr-platform-shared';
-// import { selectors } from '@makemydeal/dr-offer-redux';
-
-// import { config } from '../../../../config';
-// import * as dealerSelectors from '../../selectors/dealerSelectors';
-// import HeaderUI from './HeaderUI';
-// import { IHeaderUIStateProps, IHeaderUIDispatchProps } from './HeaderUI';
-// import { IStateTree, OfferType } from '../../../../common/types';
+import { connect, Dispatch } from 'react-redux';
+import HeaderUI from './HeaderUI';
+import { IHeaderUIStateProps, IHeaderUIDispatchProps } from './HeaderUI';
+import { IStoreState } from '../../types';
+import { openDrawer, IOpenDrawer } from '../../actions';
 
 export interface IHeaderProps {
 }
 
-// const mapStateToProps = (state: IStateTree, ownProps: IHeaderProps): IHeaderUIStateProps => {
-//     const dealerLogo = dealerSelectors.getDealerLogoUrl(state);
-//     const result = {
-//         dealerName: dealerSelectors.getDealerName(state),
-//         dealerLogo
-//     };
-//     return result;
-// };
+type IHeaderActions = IOpenDrawer;
 
-// const mapDispatchToProps = (dispatch): IHeaderUIDispatchProps => {
-//     return {};
-// };
+const mapStateToProps = (state: IStoreState, ownProps: IHeaderProps): IHeaderUIStateProps => {
+    const result = {
+    };
+    return result;
+};
 
-// const Header = connect(
-//     mapStateToProps,
-//     mapDispatchToProps
-// )(HeaderUI);
+const mapDispatchToProps = (dispatch: Dispatch<IHeaderActions>): IHeaderUIDispatchProps => {
+    return {
+        openDrawer: () => dispatch(openDrawer())
+    };
+};
 
-const Header = {};
+const Header = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(HeaderUI);
 
 export default Header;

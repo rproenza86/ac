@@ -2,8 +2,8 @@ import { DrawerActions } from '../actions';
 import { IDrawer } from '../types/index';
 import { OPEN_DRAWER, CLOSE_DRAWER } from '../constants/index';
 
-export default function drawerReducer(state: IDrawer, action: DrawerActions): IDrawer {
-    const newState: IDrawer = { ...state, open: false };
+export default function drawerReducer(state: IDrawer = { open: false }, action: DrawerActions): IDrawer {
+    const newState: IDrawer = { ...state };
     switch (action.type) {
         case OPEN_DRAWER:
             return { ...newState, open: true };
