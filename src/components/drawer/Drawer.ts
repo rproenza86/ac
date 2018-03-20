@@ -1,6 +1,5 @@
 import { connect, Dispatch } from 'react-redux';
-import DrawerUI from './DrawerUI';
-import { IDrawerUIStateProps, IDrawerUIDispatchProps } from './DrawerUI';
+import DrawerUI, { IDrawerUIStateProps, IDrawerUIDispatchProps } from './DrawerUI';
 import { getDrawerOpenStatus } from '../../selectors/drawer';
 import { IStoreState } from '../../types';
 import { closeDrawer, DrawerActions } from '../../actions';

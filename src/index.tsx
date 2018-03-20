@@ -17,14 +17,8 @@ const composeEnhancers = reduxDevTools ?
     windowDoc({
         name: 'Atomic Coders LCC'
     }) : compose;
-composeEnhancers();
-// TODO: Check why composeEnhancers create error, fix it an use it
 
-// tslint:disable:no-any
-const store = createStore<IStoreState>(rootReducer,
-                                       (window as any).__REDUX_DEVTOOLS_EXTENSION__
-                                       && (window as any).__REDUX_DEVTOOLS_EXTENSION__());
-// tslint:enable:no-any
+const store = createStore<IStoreState>(rootReducer, composeEnhancers());
 
 const MaterialWrapper = () => (
   <MuiThemeProvider>

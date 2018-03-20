@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Component } from 'react';
 import './HeaderUI.css';
 import AppBar from 'material-ui/AppBar';
 import Drawer from '../drawer';
@@ -17,7 +16,7 @@ export interface IHeaderUIState {
 interface IHeaderUIProps extends IHeaderUIStateProps, IHeaderUIDispatchProps {
 }
 
-class HeaderUI extends Component<IHeaderUIProps, IHeaderUIState> {
+class HeaderUI extends React.Component<IHeaderUIProps, IHeaderUIState> {
     constructor(props: IHeaderUIProps) {
         super(props);
     }
