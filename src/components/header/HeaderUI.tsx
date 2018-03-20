@@ -2,11 +2,13 @@ import * as React from 'react';
 import { Component } from 'react';
 import './HeaderUI.css';
 import AppBar from 'material-ui/AppBar';
+import Drawer from '../drawer';
 
 export interface IHeaderUIStateProps {
 }
 
 export interface IHeaderUIDispatchProps {
+    openDrawer?: () => void;
 }
 
 export interface IHeaderUIState {
@@ -20,13 +22,24 @@ class HeaderUI extends Component<IHeaderUIProps, IHeaderUIState> {
         super(props);
     }
 
+    handleOpenDrawer() {
+        if (this.props.openDrawer) {
+            this.props.openDrawer();
+        }
+    }
+
     render() {
+        const DrawerContainers = Drawer.Container;
         return (
-            <AppBar
-              title="Atomic Coders"
-              className="header-main"
-              iconClassNameRight="muidocs-icon-navigation-expand-more"
-            />
+            <div>
+                <AppBar
+                    title="Atomic Coders"
+                    className="header-main"
+                    iconClassNameRight="muidocs-icon-navigation-expand-more"
+                    onLeftIconButtonClick={() => this.handleOpenDrawer()}
+                />
+                <DrawerContainers/>
+            </div>
         );
     }
 }

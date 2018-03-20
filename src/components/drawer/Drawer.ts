@@ -1,36 +1,30 @@
-// import { connect } from 'react-redux';
-// 
-// import { formatUtils } from '@makemydeal/dr-common-utils';
-// import { formatUtils as sharedFormatUtils } from '@makemydeal/dr-platform-shared';
-// import { selectors } from '@makemydeal/dr-offer-redux';
-
-// import { config } from '../../../../config';
-// import * as dealerSelectors from '../../selectors/dealerSelectors';
-// import DrawerUI from './DrawerUI';
-// import { IDrawerUIStateProps, IDrawerUIDispatchProps } from './DrawerUI';
-// import { IStateTree, OfferType } from '../../../../common/types';
+import { connect, Dispatch } from 'react-redux';
+import DrawerUI from './DrawerUI';
+import { IDrawerUIStateProps, IDrawerUIDispatchProps } from './DrawerUI';
+import { getDrawerOpenStatus } from '../../selectors/drawer';
+import { IStoreState } from '../../types';
+import { closeDrawer, DrawerActions } from '../../actions';
 
 export interface IDrawerProps {
 }
 
-// const mapStateToProps = (state: IStateTree, ownProps: IDrawerProps): IDrawerUIStateProps => {
-//     const dealerLogo = dealerSelectors.getDealerLogoUrl(state);
-//     const result = {
-//         dealerName: dealerSelectors.getDealerName(state),
-//         dealerLogo
-//     };
-//     return result;
-// };
+const mapStateToProps = (state: IStoreState, ownProps: IDrawerProps): IDrawerUIStateProps => {
+    const open = getDrawerOpenStatus(state);
+    const result = {
+        open
+    };
+    return result;
+};
 
-// const mapDispatchToProps = (dispatch): IDrawerUIDispatchProps => {
-//     return {};
-// };
+const mapDispatchToProps = (dispatch: Dispatch<DrawerActions>): IDrawerUIDispatchProps => {
+    return {
+        closeDrawer: () => dispatch(closeDrawer())
+    };
+};
 
-// const Drawer = connect(
-//     mapStateToProps,
-//     mapDispatchToProps
-// )(DrawerUI);
-
-const Drawer = {};
+const Drawer = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(DrawerUI);
 
 export default Drawer;
