@@ -1,7 +1,9 @@
 import * as React from 'react';
 import './HeaderUI.css';
-import AppBar from 'material-ui/AppBar';
 import Drawer from '../drawer';
+import AppBar from 'material-ui/AppBar';
+import IconButton from 'material-ui/IconButton';
+import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 
 export interface IHeaderUIStateProps {
 }
@@ -21,7 +23,7 @@ class HeaderUI extends React.Component<IHeaderUIProps, IHeaderUIState> {
         super(props);
     }
 
-    handleOpenDrawer() {
+    handleOpenDrawer(): void {
         if (this.props.openDrawer) {
             this.props.openDrawer();
         }
@@ -34,7 +36,7 @@ class HeaderUI extends React.Component<IHeaderUIProps, IHeaderUIState> {
                 <AppBar
                     title="Atomic Coders"
                     className="header-main"
-                    iconClassNameRight="muidocs-icon-navigation-expand-more"
+                    iconElementLeft={<IconButton aria-label="Open menu"><NavigationMenu /></IconButton>}
                     onLeftIconButtonClick={() => this.handleOpenDrawer()}
                 />
                 <DrawerContainers/>

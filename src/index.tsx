@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import App from './components/app/App';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import registerServiceWorker from './registerServiceWorker';
 import * as firebase from 'firebase';
 import './styles/global.css';
@@ -21,8 +22,15 @@ const composeEnhancers = reduxDevTools ?
 
 const store = createStore<IStoreState>(rootReducer, composeEnhancers());
 
+const muiTheme = getMuiTheme({
+  palette: {
+    primary2Color: '#303F9F',
+    primary1Color: '#3F51B5'
+  }
+});
+
 const MaterialWrapper = () => (
-  <MuiThemeProvider>
+  <MuiThemeProvider muiTheme={muiTheme}>
     <Provider store={store}>
       <App />
     </Provider>
