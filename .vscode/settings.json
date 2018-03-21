@@ -21,6 +21,8 @@
         "coverage/": true,
         "dist/": true,
         "functions/node_modules": true
-    }
-    
+    },
+    "cSpell.words": [
+        "firestore"
+    ]
 }

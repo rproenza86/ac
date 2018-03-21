@@ -1,6 +1,5 @@
 import { connect, Dispatch } from 'react-redux';
-import HeaderUI from './HeaderUI';
-import { IHeaderUIStateProps, IHeaderUIDispatchProps } from './HeaderUI';
+import HeaderUI, { IHeaderUIStateProps, IHeaderUIDispatchProps } from './HeaderUI';
 import { IStoreState } from '../../types';
 import { openDrawer, IOpenDrawer } from '../../actions';
 
