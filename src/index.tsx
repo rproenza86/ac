@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import App from './components/app/App';
+import App from './components/app';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import registerServiceWorker from './registerServiceWorker';
@@ -29,10 +29,12 @@ const muiTheme = getMuiTheme({
   }
 });
 
+const AppContainer = App.Container;
+
 const MaterialWrapper = () => (
   <MuiThemeProvider muiTheme={muiTheme}>
     <Provider store={store}>
-      <App />
+      <AppContainer />
     </Provider>
   </MuiThemeProvider>
 );
