@@ -14,7 +14,7 @@ export interface ISnackbarUIState {
 
 export default class SnackbarUI extends React.Component<ISnackbarUIProps, ISnackbarUIState> {
 
-  constructor(props: ISnackbarUIProps) {
+  public constructor(props: ISnackbarUIProps) {
     super(props);
 
     this.state = {
@@ -24,19 +24,13 @@ export default class SnackbarUI extends React.Component<ISnackbarUIProps, ISnack
     };
   }
 
-  componentWillReceiveProps(nextProps: ISnackbarUIProps) {
+  public componentWillReceiveProps(nextProps: ISnackbarUIProps): void {
     this.setState({
       open: nextProps.open
     });
   }
 
-  handleRequestClose = () => {
-    this.setState({
-      open: false
-    });
-  }
-
-  render() {
+  public render(): React.ReactElement<HTMLElement> {
     return (
       <div>
         <Snackbar
@@ -49,5 +43,11 @@ export default class SnackbarUI extends React.Component<ISnackbarUIProps, ISnack
         />
       </div>
     );
+  }
+
+  private handleRequestClose(): void {
+    this.setState({
+      open: false
+    });
   }
 }

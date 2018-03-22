@@ -31,7 +31,7 @@ const muiTheme = getMuiTheme({
 
 const AppContainer = App.Container;
 
-const MaterialWrapper = () => (
+const MaterialWrapper = (): React.ReactElement<HTMLElement> => (
   <MuiThemeProvider muiTheme={muiTheme}>
     <Provider store={store}>
       <AppContainer />

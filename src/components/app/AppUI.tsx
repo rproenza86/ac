@@ -23,7 +23,7 @@ export interface IAppUIState {
 }
 
 class AppUI extends React.Component<IAppUIProps, IAppUIState> {
-  constructor(props: IAppUIDispatchProps) {
+  public constructor(props: IAppUIDispatchProps) {
     super(props);
 
     window.addEventListener('online', (event) => {
@@ -38,7 +38,7 @@ class AppUI extends React.Component<IAppUIProps, IAppUIState> {
     };
   }
 
-  componentWillReceiveProps(nextProps: IAppUIProps) {
+  public componentWillReceiveProps(nextProps: IAppUIProps): void {
     if (nextProps.network_status) {
       this.notifyAppOnline();
     } else {
@@ -46,19 +46,7 @@ class AppUI extends React.Component<IAppUIProps, IAppUIState> {
     }
   }
 
-  notifyAppOffline() {
-    this.setState({
-      notify: true,
-    });
-  }
-
-  notifyAppOnline() {
-    this.setState({
-      notify: true,
-    });
-  }
-
-  render() {
+  public render(): React.ReactElement<HTMLElement> {
     const  HeaderContainer = Header.Container;
     return (
       <div className="App">
@@ -73,6 +61,18 @@ class AppUI extends React.Component<IAppUIProps, IAppUIState> {
         <Snackbar open={this.state.notify} message={this.props.message || ''}/>
       </div>
     );
+  }
+
+  private notifyAppOffline(): void {
+    this.setState({
+      notify: true,
+    });
+  }
+
+  private notifyAppOnline(): void {
+    this.setState({
+      notify: true,
+    });
   }
 }
 
