@@ -4,7 +4,6 @@ import App from './components/app';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import registerServiceWorker from './registerServiceWorker';
-import * as firebase from 'firebase';
 import './styles/global.css';
 
 import { createStore, compose } from 'redux';
@@ -44,12 +43,3 @@ ReactDOM.render(
   document.getElementById('root') as HTMLElement
 );
 registerServiceWorker();
-
-firebase.initializeApp({
-  'apiKey': 'AIzaSyBFYpHBN-TmD-TUxQtVXgSFS7s7soUwnbA',
-  'databaseURL': 'https://atomic-coders.firebaseio.com',
-  'storageBucket': 'atomic-coders.appspot.com',
-  'authDomain': 'atomic-coders.firebaseapp.com',
-  'messagingSenderId': '396010841523',
-  'projectId': 'atomic-coders'
-});

@@ -23,6 +23,10 @@
         "functions/node_modules": true
     },
     "cSpell.words": [
-        "firestore"
+        "firestore",
+        "notificationclick",
+        "notificationclose",
+        "onstatechange",
+        "onupdatefound"
     ]
 }

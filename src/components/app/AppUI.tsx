@@ -2,12 +2,15 @@ import * as React from 'react';
 import './App.css';
 import Header from '../header';
 import Snackbar from '../snackbar/SnackbarUI';
+import SwPushNotificationCtrl from '../../services/swPushNotificationCtrl';
 
 const logo = require('../../assets/images/logo.svg');
 
 export interface IAppUIStateProps {
     network_status?: boolean;
     message?: string;
+    firebaseCtl?: firebase.app.App;
+    pushNotificationCtrl?: SwPushNotificationCtrl;
 }
 
 export interface IAppUIDispatchProps {
@@ -36,6 +39,10 @@ class AppUI extends React.Component<IAppUIProps, IAppUIState> {
     this.state = {
       notify: false,
     };
+    
+    if (this.props.pushNotificationCtrl) {
+      this.props.pushNotificationCtrl.subscribeUser();
+    }
   }
 
   public componentWillReceiveProps(nextProps: IAppUIProps): void {
