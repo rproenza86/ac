@@ -13,7 +13,7 @@ self.addEventListener('push', function(e) {
 
   var options = {
     body: message,
-    icon: 'icons/mcodcons-icon-192.png',
+    icon: 'icons/mcodcons-icon-192.png', 
     badge: 'icons/mcodcons-icon-32.png',
     image: 'icons/logo.svg',
     dir: 'auto',
@@ -22,7 +22,7 @@ self.addEventListener('push', function(e) {
     vibrate: [100, 50, 100],
     data: {
       dateOfArrival: Date.now(),
-      primaryKey: 1
+      subscriptionId: data.subscriptionId
     },
     actions: [
       {action: 'explore', title: 'Go to the site',
@@ -42,6 +42,8 @@ self.addEventListener('push', function(e) {
         // Send a message to the page to update the UI
         // TODO: postMessage implementation to communicate UI and sw
         console.log('Application is already open!');
+        // FIXME:For now let it pass and handle it in the notificationclick handler
+        self.registration.showNotification('Atomic Coders', options);
       }
     })
   );
@@ -49,9 +51,9 @@ self.addEventListener('push', function(e) {
 
 self.addEventListener('notificationclose', function(e) {
   var notification = e.notification;
-  var primaryKey = notification.data.primaryKey;
+  var subscriptionId = notification.data.subscriptionId;
 
-  console.log('Closed notification: ' + primaryKey);
+  console.log('Closed notification: ' + subscriptionId);
 
   if (!e.action) {
     // Was a normal notification click
@@ -67,17 +69,17 @@ self.addEventListener('notificationclose', function(e) {
       console.log('User ❤️️\'s close.');
       break;
     default:
-      console.log(`Unknown action clicked: '${event.action}'`);
+      console.log(`Unknown action clicked: '${e.action}'`);
       break;
   }
 });
 
-self.addEventListener('notificationclick', function(event) {
+self.addEventListener('notificationclick', function(e) {
 
   console.log('Global Notification Click. Fired on a notification or notification action.');
 
-  var clickedNotification = event.notification;
-  var primaryKey = clickedNotification.data.primaryKey;
+  var clickedNotification = e.notification;
+  var subscriptionId = clickedNotification.data.subscriptionId;
   var action = e.action;
 
   clickedNotification.close();
@@ -96,19 +98,19 @@ self.addEventListener('notificationclick', function(event) {
   // const promiseChain = dispatchAnalytics();
   // event.waitUntil(promiseChain);
 
-  // e.waitUntil(
-  //   clients.matchAll().then(function(clis) {
-  //     var client = clis.find(function(c) {
-  //       return c.visibilityState === 'visible';
-  //     });
-  //     if (client !== undefined) {
-  //       client.navigate('services/explore' + primaryKey);
-  //       client.focus();
-  //     } else {
-  //       // there are no visible windows. Open one.
-  //       clients.openWindow('blog/' + primaryKey);
-  //       notification.close();
-  //     }
-  //   })
-  // )
+  e.waitUntil(
+    clients.matchAll().then(function(clis) {
+      var client = clis.find(function(c) {
+        return c.visibilityState === 'visible';
+      });
+      if (client !== undefined) {
+        client.navigate('services/explore' + subscriptionId);
+        client.focus();
+      } else {
+        // there are no visible windows. Open one.
+        clients.openWindow('blog/' + subscriptionId);
+        notification.close();
+      }
+    })
+  )
 });

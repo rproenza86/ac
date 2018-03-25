@@ -9,6 +9,7 @@
 
 # production
 /build
+/functions/lib
 
 # local config
 src/config
