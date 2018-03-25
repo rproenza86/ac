@@ -1,14 +1,12 @@
 import * as React from 'react';
 import './App.css';
 import Header from '../header';
-import Snackbar from '../snackbar/SnackbarUI';
+import NetworkStatus from '../networkStatus';
 import SwPushNotificationCtrl from '../../services/swPushNotificationCtrl';
 
 const logo = require('../../assets/images/logo.svg');
 
 export interface IAppUIStateProps {
-    network_status?: boolean;
-    message?: string;
     firebaseCtl?: firebase.app.App;
     pushNotificationCtrl?: SwPushNotificationCtrl;
 }
@@ -21,11 +19,7 @@ export interface IAppUIDispatchProps {
 interface IAppUIProps extends IAppUIStateProps, IAppUIDispatchProps {
 }
 
-export interface IAppUIState {
-  notify: boolean;
-}
-
-class AppUI extends React.Component<IAppUIProps, IAppUIState> {
+class AppUI extends React.Component<IAppUIProps, {}> {
   public constructor(props: IAppUIDispatchProps) {
     super(props);
 
@@ -36,25 +30,14 @@ class AppUI extends React.Component<IAppUIProps, IAppUIState> {
 
     window.addEventListener('offline', (event) => this.props.notifyAppOffline());
 
-    this.state = {
-      notify: false,
-    };
-    
     if (this.props.pushNotificationCtrl) {
       this.props.pushNotificationCtrl.subscribeUser();
     }
   }
 
-  public componentWillReceiveProps(nextProps: IAppUIProps): void {
-    if (nextProps.network_status) {
-      this.notifyAppOnline();
-    } else {
-      this.notifyAppOffline();
-    }
-  }
-
   public render(): React.ReactElement<HTMLElement> {
     const  HeaderContainer = Header.Container;
+    const NetworkStatusContainer = NetworkStatus.Container;
     return (
       <div className="App">
         <HeaderContainer/>
@@ -65,21 +48,9 @@ class AppUI extends React.Component<IAppUIProps, IAppUIState> {
         <p className="App-intro">
           To get started, edit <code>src/App.tsx</code> and save to reload.
         </p>
-        <Snackbar open={this.state.notify} message={this.props.message || ''}/>
+        <NetworkStatusContainer/>
       </div>
     );
-  }
-
-  private notifyAppOffline(): void {
-    this.setState({
-      notify: true,
-    });
-  }
-
-  private notifyAppOnline(): void {
-    this.setState({
-      notify: true,
-    });
   }
 }
 

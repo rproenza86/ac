@@ -144,7 +144,7 @@ export default class SwPushNotificationCtrl {
                 this.userPushSubscription = subscription;
             })
             .catch(function(err: Error) {
-                if (Notification.permission === 'denied') {
+                if (Notification && Notification.permission === 'denied') {
                     console.warn('Permission for notifications was denied');
                 } else {
                     console.error('Failed to subscribe the user: ', err);

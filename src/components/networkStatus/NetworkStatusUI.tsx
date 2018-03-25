@@ -1,33 +1,35 @@
 import * as React from 'react';
 import Snackbar from 'material-ui/Snackbar';
 
-export interface ISnackbarUIProps {
-  open: boolean;
+export interface INetworkStatusUIProps {
+  network_status: boolean;
   message: string;
 }
 
-export interface ISnackbarUIState {
+export interface INetworkStatusUIState {
   open: boolean;
   autoHideDuration: number;
   message: string;
 }
 
-export default class SnackbarUI extends React.Component<ISnackbarUIProps, ISnackbarUIState> {
+export default class NetworkStatusUI extends React.Component<INetworkStatusUIProps, INetworkStatusUIState> {
 
-  public constructor(props: ISnackbarUIProps) {
+  public constructor(props: INetworkStatusUIProps) {
     super(props);
 
     this.state = {
       autoHideDuration: 4000,
       message: 'Something just happen in the app',
-      open: props.open,
+      open: false,
     };
   }
 
-  public componentWillReceiveProps(nextProps: ISnackbarUIProps): void {
-    this.setState({
-      open: nextProps.open
-    });
+  public componentWillReceiveProps(nextProps: INetworkStatusUIProps): void {
+    if (nextProps.network_status !== this.props.network_status) {
+      this.setState({
+        open: true
+      });
+    }
   }
 
   public render(): React.ReactElement<HTMLElement> {
@@ -37,9 +39,9 @@ export default class SnackbarUI extends React.Component<ISnackbarUIProps, ISnack
           open={this.state.open}
           message={this.props.message || this.state.message}
           autoHideDuration={this.state.autoHideDuration}
-          onRequestClose={this.handleRequestClose}
+          onRequestClose={() => this.handleRequestClose()}
           action="Ok"
-          onActionClick={this.handleRequestClose}
+          onActionClick={() => this.handleRequestClose()}
         />
       </div>
     );
