@@ -6,6 +6,7 @@
 
 # testing
 /coverage
+/functions/.runtimeconfig.json
 
 # production
 /build
