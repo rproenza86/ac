@@ -45,6 +45,9 @@ export default class SwPushNotificationCtrl {
     }
 
     public subscribeUser(): void {
+        if (this.isPushNotificationDenied()) {
+            return;
+        }
         if (!this.swRegistration) {
             return this.setupSwRegistration();
         }
@@ -56,6 +59,9 @@ export default class SwPushNotificationCtrl {
     }
 
     public unsubscribeUser(): boolean | void {
+        if (!this.isPushNotificationGranted()) {
+            return;
+        }
         if (!this.swRegistration) {
             return false;
         }
@@ -92,7 +98,7 @@ export default class SwPushNotificationCtrl {
 
     public isPushNotificationDenied(): boolean {
         if (!Notification) {
-            return true;
+            return false;
         }
 
         const permission: NotificationPermission = Notification.permission;

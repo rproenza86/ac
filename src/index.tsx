@@ -11,6 +11,17 @@ import rootReducer from './reducers';
 import { IStoreState } from './types';
 import { Provider } from 'react-redux';
 
+import SwPushNotificationCtrl from './services/swPushNotificationCtrl';
+import * as firebase from 'firebase';
+const firebaseConfig = require('./.firebase.json');
+export const firebaseCtl = firebase.initializeApp(firebaseConfig);
+
+export const pushNotificationCtrl = ('serviceWorker' in navigator && 'PushManager' in window)
+    ? new SwPushNotificationCtrl(
+      'BLok2rQc1b61_eyJ_t9uH4t7DhAUuxGl-Tker6c1IlJ8RYcLxtCj1UlylxemCnnnZEnDwF6ab8np5OS0RVAfeXk', 
+      firebaseCtl)
+    : undefined;
+
 // tslint:disable-next-line:no-any
 const windowDoc = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 const reduxDevTools = typeof window === 'object' && windowDoc;
