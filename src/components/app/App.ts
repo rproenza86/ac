@@ -3,15 +3,8 @@ import AppUI, { IAppUIStateProps, IAppUIDispatchProps } from './AppUI';
 import { IStoreState } from '../../types';
 import { appOnline, appOffline, NetworkStatusActions } from '../../actions';
 
-import { pushNotificationCtrl as pushNotificationCtrlInstance } from '../../index';
-import { firebaseCtl as firebaseCtlInstance } from '../../index';
-
 const mapStateToProps = (state: IStoreState): IAppUIStateProps => {
-    const result = {
-        pushNotificationCtrl: pushNotificationCtrlInstance,
-        firebaseCtl: firebaseCtlInstance
-    };
-    return result;
+    return {};
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<NetworkStatusActions>): IAppUIDispatchProps => {

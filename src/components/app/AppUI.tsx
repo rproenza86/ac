@@ -2,13 +2,11 @@ import * as React from 'react';
 import './App.css';
 import Header from '../header';
 import NetworkStatus from '../networkStatus';
-import SwPushNotificationCtrl from '../../services/swPushNotificationCtrl';
+import PushNotificationBannerUI from '../pushNotificationBanner';
 
 const logo = require('../../assets/images/logo.svg');
 
 export interface IAppUIStateProps {
-    firebaseCtl?: firebase.app.App;
-    pushNotificationCtrl?: SwPushNotificationCtrl;
 }
 
 export interface IAppUIDispatchProps {
@@ -29,17 +27,15 @@ class AppUI extends React.Component<IAppUIProps, {}> {
     );
 
     window.addEventListener('offline', (event) => this.props.notifyAppOffline());
-
-    if (this.props.pushNotificationCtrl) {
-      this.props.pushNotificationCtrl.subscribeUser();
-    }
   }
 
   public render(): React.ReactElement<HTMLElement> {
     const  HeaderContainer = Header.Container;
     const NetworkStatusContainer = NetworkStatus.Container;
+    const PushNotificationBannerUIContainer = PushNotificationBannerUI.Container;
     return (
       <div className="App">
+        <PushNotificationBannerUIContainer/>
         <HeaderContainer/>
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
