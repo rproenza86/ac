@@ -16,9 +16,7 @@ interface IDrawerUIProps extends IDrawerUIStateProps, IDrawerUIDispatchProps {
 }
 
 export default class DrawerOpenRightExample extends React.Component<IDrawerUIProps, {}> {
-  handleCloseDrawer = () => this.props.closeDrawer();
-
-  render() {
+  public render(): React.ReactElement<HTMLElement> {
     return (
       <div>
         <Drawer
@@ -36,4 +34,8 @@ export default class DrawerOpenRightExample extends React.Component<IDrawerUIPro
       </div>
     );
   }
+
+  private handleCloseDrawer(): void {
+    this.props.closeDrawer();
+  } 
 }

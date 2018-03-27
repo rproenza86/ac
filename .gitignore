@@ -6,9 +6,14 @@
 
 # testing
 /coverage
+/functions/.runtimeconfig.json
 
 # production
 /build
+/functions/lib
+
+# local config
+src/config
 
 # misc
 .DS_Store

@@ -1,0 +1,12 @@
+.push-notification-banner {
+    height: 34px;
+}
+.push-notification-banner-inner {
+    background-color: #34a853 !important;
+    height: 34px !important;
+}
+.push-notification-banner-permission {
+    color: inherit;
+    text-decoration: underline;
+}
+

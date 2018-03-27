@@ -19,17 +19,11 @@ interface IHeaderUIProps extends IHeaderUIStateProps, IHeaderUIDispatchProps {
 }
 
 class HeaderUI extends React.Component<IHeaderUIProps, IHeaderUIState> {
-    constructor(props: IHeaderUIProps) {
+    public constructor(props: IHeaderUIProps) {
         super(props);
     }
 
-    handleOpenDrawer(): void {
-        if (this.props.openDrawer) {
-            this.props.openDrawer();
-        }
-    }
-
-    render() {
+    public render(): React.ReactElement<HTMLElement> {
         const DrawerContainers = Drawer.Container;
         return (
             <div>
@@ -42,6 +36,12 @@ class HeaderUI extends React.Component<IHeaderUIProps, IHeaderUIState> {
                 <DrawerContainers/>
             </div>
         );
+    }
+
+    private handleOpenDrawer(): void {
+        if (this.props.openDrawer) {
+            this.props.openDrawer();
+        }
     }
 }
 

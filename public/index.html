@@ -70,5 +70,19 @@
       if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
       else window.addEventListener('load', loadDeferredStyles);
     </script>
+
+    <script>
+      if ('serviceWorker' in navigator && 'PushManager' in window) {
+          navigator.serviceWorker.register('push_msg_sw.js')
+              .then(function(swReg) {
+                  console.log('Push messaging Service Worker is registered');
+              })
+              .catch(function(error) {
+                  console.error('Service Worker Error', error);
+              });
+      } else {
+          console.warn('Push messaging is not supported');
+      }
+    </script>
   </body>
 </html>

@@ -4,13 +4,23 @@ import App from './components/app';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import registerServiceWorker from './registerServiceWorker';
-import * as firebase from 'firebase';
 import './styles/global.css';
 
 import { createStore, compose } from 'redux';
 import rootReducer from './reducers';
 import { IStoreState } from './types';
 import { Provider } from 'react-redux';
+
+import SwPushNotificationCtrl from './services/swPushNotificationCtrl';
+import * as firebase from 'firebase';
+const firebaseConfig = require('./.firebase.json');
+export const firebaseCtl = firebase.initializeApp(firebaseConfig);
+
+export const pushNotificationCtrl = ('serviceWorker' in navigator && 'PushManager' in window)
+    ? new SwPushNotificationCtrl(
+      'BLok2rQc1b61_eyJ_t9uH4t7DhAUuxGl-Tker6c1IlJ8RYcLxtCj1UlylxemCnnnZEnDwF6ab8np5OS0RVAfeXk', 
+      firebaseCtl)
+    : undefined;
 
 // tslint:disable-next-line:no-any
 const windowDoc = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
@@ -31,7 +41,7 @@ const muiTheme = getMuiTheme({
 
 const AppContainer = App.Container;
 
-const MaterialWrapper = () => (
+const MaterialWrapper = (): React.ReactElement<HTMLElement> => (
   <MuiThemeProvider muiTheme={muiTheme}>
     <Provider store={store}>
       <AppContainer />
@@ -44,12 +54,3 @@ ReactDOM.render(
   document.getElementById('root') as HTMLElement
 );
 registerServiceWorker();
-
-firebase.initializeApp({
-  'apiKey': 'AIzaSyBFYpHBN-TmD-TUxQtVXgSFS7s7soUwnbA',
-  'databaseURL': 'https://atomic-coders.firebaseio.com',
-  'storageBucket': 'atomic-coders.appspot.com',
-  'authDomain': 'atomic-coders.firebaseapp.com',
-  'messagingSenderId': '396010841523',
-  'projectId': 'atomic-coders'
-});
