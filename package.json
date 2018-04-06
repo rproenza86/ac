@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "cra-append-sw": "^2.3.0",
     "firebase": "^4.12.0",
     "material-ui": "^0.20.0",
     "react": "^16.2.0",
@@ -12,8 +13,8 @@
     "redux": "^3.7.2"
   },
   "scripts": {
-    "start": "react-scripts-ts start",
-    "build": "react-scripts-ts build",
+    "start": "react-scripts-ts start && cra-append-sw --mode dev ./public/push_msg_sw.js",
+    "build": "react-scripts-ts build && cra-append-sw ./public/push_msg_sw.js",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
     "firebase": "firebase serve --only functions,hosting -p 9889",
@@ -35,6 +36,6 @@
     "@types/react-dom": "^16.0.4",
     "@types/react-redux": "^5.0.15",
     "@types/redux-devtools-extension": "^2.13.2",
-    "typescript": "^2.7.2"
+    "typescript": "^2.8.1"
   }
 }

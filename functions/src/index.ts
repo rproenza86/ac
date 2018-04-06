@@ -17,6 +17,18 @@ export interface ISubscription {
     }
 }
 
+async function deleteSubscriptionOnDB (subscription: ISubscription) {
+    const { id, ...pushSubscription } = subscription;
+    const db = admin.firestore();
+
+    if (id) {
+        const dbSubscription: FirebaseFirestore.WriteResult = await db.collection('subscriptions').doc(id).delete();
+        return dbSubscription;
+    }
+
+    return '';
+};
+
 async function sendPushNotification(subscription: ISubscription, queryParams) {
     const { id, ...pushSubscription } = subscription;
     webPush.setGCMAPIKey(functions.config().gcm.apikey);
@@ -34,12 +46,19 @@ async function sendPushNotification(subscription: ISubscription, queryParams) {
 
     return await webPush.sendNotification(pushSubscription, JSON.stringify(payload))
         .then((resp) => {
-            console.log(`Message response of id : ${id} => ${JSON.stringify(resp)}`);
-            return `Hello from Firebase! ${JSON.stringify(resp)}`;
+            console.info(`Push notification send to id : ${id} => ${JSON.stringify(resp)}`);
+            return `Push notification send! ${JSON.stringify(resp)}`;
         })
         .catch((err) => {
-            console.log(err);
-            return `Hello from Firebase! ${JSON.stringify(err)}`;
+            const cleanDB = async function() {
+                return await deleteSubscriptionOnDB(subscription);
+            };
+            const errorMessage = {
+                error: err,
+                deleteRegistration: cleanDB()
+            }
+            console.error('Ups!!! Error sending notification!', errorMessage);
+            return `Ups!!! Error sending notification! ${JSON.stringify(errorMessage)}`;
         });
 };
 
@@ -65,9 +84,6 @@ export const notifyUser = functions.https.onRequest((request, response) => {
                     p256dh: data.keys.p256dh
                 }
             };
-
-            console.log(subscription.id, '=>', subscription);
-
             subscriptionsQueue.push(subscription);
             notificationResponses.push(sendPushNotification(subscription, queryParams));
         });

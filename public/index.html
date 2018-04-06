@@ -6,8 +6,9 @@
     <meta name="theme-color" content="#000000">
     <meta name="Description" content="Atomic Coders develop unique web applications.
     Using moderns and selected techniques we warranty a RADICAL improvement of the web 
-    experience based on Reliability, Speed and Engaging. What do we promise: +2x more pages views,
+    experience based on Reliability, Speed, clients Engaging, clients Conversion and clients Retention. What do we promise: +2x more pages views,
     +70% increase in time spent, +80% more conversions on iOS, User acquisition costs 10 times more chip and more">
+    <meta property="og:image" content="%PUBLIC_URL%/icons/mcodcons-icon-384.png" />
     <!--
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
@@ -69,20 +70,6 @@
           window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
       if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
       else window.addEventListener('load', loadDeferredStyles);
-    </script>
-
-    <script>
-      if ('serviceWorker' in navigator && 'PushManager' in window) {
-          navigator.serviceWorker.register('push_msg_sw.js')
-              .then(function(swReg) {
-                  console.log('Push messaging Service Worker is registered');
-              })
-              .catch(function(error) {
-                  console.error('Service Worker Error', error);
-              });
-      } else {
-          console.warn('Push messaging is not supported');
-      }
     </script>
   </body>
 </html>

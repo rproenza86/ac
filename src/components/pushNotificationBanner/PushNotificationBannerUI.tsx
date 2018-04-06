@@ -3,6 +3,7 @@ import './PushNotificationBannerUI.css';
 import AppBar from 'material-ui/AppBar';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import IconButton from 'material-ui/IconButton';
+import Snackbar from 'material-ui/Snackbar';
 import { pushNotificationCtrl as pushNotificationCtrlInstance } from '../../index';
 import { INotificationDenied, INotificationSkipped, INotificationEnabled } from '../../actions';
 
@@ -18,6 +19,9 @@ export interface IPushNotificationBannerUIDispatchProps {
 export interface IPushNotificationBannerUIState {
     showMainBanner: boolean;
     showSecondaryBanner: boolean;
+    message: string;
+    open: boolean;
+    intents: number;
 }
 
 interface IPushNotificationBannerUIProps extends IPushNotificationBannerUIStateProps,
@@ -47,7 +51,10 @@ class PushNotificationBannerUI extends React.Component<IPushNotificationBannerUI
         let showMainBanner: boolean = this.isMainBannerNeeded();
         this.state = {
             showMainBanner,
-            showSecondaryBanner: false
+            showSecondaryBanner: false,
+            message: 'Allow as send you notifications',
+            open: true,
+            intents: 2
         };
     }
 
@@ -66,6 +73,18 @@ class PushNotificationBannerUI extends React.Component<IPushNotificationBannerUI
     private generateBanner(): React.ReactElement<HTMLElement> {
         if (!this.isMainBannerNeeded()) {
             return <span/>;
+        }
+        if (window.screen.width <= 1024 && window.screen.height <= 768) {
+            return (
+                <Snackbar
+                        open={this.state.open}
+                        message={this.state.message}
+                        action="Enable"
+                        autoHideDuration={8000}
+                        onRequestClose={() => this.retryEnableNotifications()}
+                        onActionClick={() => this.enableNotifications()}
+                />
+            );
         }
         if (this.state.showMainBanner) {
             return (
@@ -158,6 +177,25 @@ class PushNotificationBannerUI extends React.Component<IPushNotificationBannerUI
             }
         }
         this.hideComponent();
+        this.setState({
+            open: false,
+        });
+    }
+
+    private retryEnableNotifications() {
+        let intents = this.state.intents;
+
+        if (intents) {
+            setTimeout(() => {
+                        this.setState({
+                            open: true,
+                        });
+                    }, 500000);
+        }
+        this.setState({
+            open: false,
+            intents: intents ? --intents : 0
+        });
     }
 
     private showSecondaryBanner(): void {
